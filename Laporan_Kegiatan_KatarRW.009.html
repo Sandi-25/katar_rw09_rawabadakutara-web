@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laporan_Kegiatan_KatarRW.009</title>
+    <style>
+        :root {
+            --primary-color: #0056b3; 
+            --secondary-color: #f8f9fa;
+            --accent-color: #ffc107;
+            --text-color: #333;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #eef2f5;
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border-bottom: 4px solid var(--accent-color);
+        }
+
+        header h1 { margin: 0; font-size: 1.8em; }
+
+        .container { max-width: 800px; margin: 30px auto; padding: 0 20px; }
+
+        .form-card {
+            background: white; padding: 25px; border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 30px;
+            border-top: 5px solid var(--primary-color);
+        }
+
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; margin-bottom: 5px; font-weight: bold; color: #555; }
+
+        input[type="text"], input[type="date"], input[type="file"], textarea, select {
+            width: 100%; padding: 10px; border: 1px solid #ccc;
+            border-radius: 6px; box-sizing: border-box; font-family: inherit;
+        }
+
+        textarea { resize: vertical; height: 100px; }
+
+        .btn-submit {
+            background-color: var(--primary-color); color: white; padding: 12px 25px;
+            border: none; border-radius: 6px; cursor: pointer; font-weight: bold;
+            width: 100%; font-size: 1.1em; transition: background 0.3s;
+        }
+        .btn-submit:hover { background-color: #004494; }
+
+        /* Desain Filter */
+        .filter-section {
+            display: flex; gap: 10px; margin-bottom: 20px;
+            flex-wrap: wrap; justify-content: center;
+        }
+
+        .filter-btn {
+            background-color: white; color: #555; border: 1px solid #ddd;
+            padding: 8px 16px; border-radius: 20px; cursor: pointer;
+            font-weight: 600; transition: all 0.3s;
+        }
+
+        .filter-btn:hover { background-color: #f1f1f1; }
+        .filter-btn.active {
+            background-color: var(--primary-color); color: white; border-color: var(--primary-color);
+        }
+
+        /* Desain Feed / Kartu */
+        .feed { display: flex; flex-direction: column; gap: 20px; }
+        
+        .activity-card {
+            background: white; border-radius: 10px; overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08); display: flex; flex-direction: row;
+            position: relative;
+        }
+
+        .activity-card img { width: 250px; height: 250px; object-fit: cover; background: #eee; }
+        .activity-info { padding: 20px; flex: 1; display: flex; flex-direction: column; justify-content: center; }
+        .activity-info h3 { margin: 0 0 10px 0; color: var(--primary-color); font-size: 1.5em; }
+        
+        .meta-info { margin-bottom: 15px; display: flex; gap: 10px; flex-wrap: wrap; }
+        
+        .activity-date, .activity-category {
+            font-size: 0.85em; color: #555; background: #eef2f5;
+            padding: 5px 10px; border-radius: 4px; font-weight: bold;
+        }
+        
+        .activity-category { background: #e8f0fe; color: var(--primary-color); }
+        .activity-desc { line-height: 1.6; margin: 0; color: #444; }
+
+        .delete-btn {
+            position: absolute; top: 15px; right: 15px;
+            background: #dc3545; color: white; border: none;
+            padding: 5px 10px; border-radius: 4px; cursor: pointer;
+            font-size: 0.85em; font-weight: bold;
+        }
+        .delete-btn:hover { background: #c82333; }
+
+        @media (max-width: 600px) {
+            .activity-card { flex-direction: column; }
+            .activity-card img { width: 100%; height: 200px; }
+            .delete-btn { top: 10px; right: 10px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Laporan Kegiatan Katar RW.009</h1>
+        <p style="margin: 5px 0 0 0; font-size: 0.9em;">Dokumentasi & Laporan Kegiatan Warga</p>
+    </header>
+
+    <div class="container">
+        <!-- Form Upload -->
+        <div class="form-card">
+            <h2>Upload Kegiatan Baru</h2>
+            <form id="activityForm">
+                <div class="form-group">
+                    <label>Nama Kegiatan</label>
+                    <input type="text" id="titleInput" placeholder="Misal: Kerja Bakti Desa, Rapat Rutin..." required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Kategori</label>
+                    <select id="categoryInput" required>
+                        <option value="" disabled selected>Pilih Kategori...</option>
+                        <option value="Sosial">Sosial / Masyarakat</option>
+                        <option value="Olahraga">Olahraga</option>
+                        <option value="Rapat">Rapat / Organisasi</option>
+                        <option value="Seni">Seni & Budaya</option>
+                        <option value="Lainnya">Lainnya</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Tanggal Pelaksanaan</label>
+                    <input type="date" id="dateInput" required>
+                </div>
+                <div class="form-group">
+                    <label>Foto Dokumentasi</label>
+                    <input type="file" id="photoInput" accept="image/*" required>
+                </div>
+                <div class="form-group">
+                    <label>Komentar / Deskripsi Kegiatan</label>
+                    <textarea id="descInput" placeholder="Tuliskan komentar, hasil rapat, atau cerita tentang kegiatan ini..." required></textarea>
+                </div>
+                <button type="submit" class="btn-submit">Publikasikan Kegiatan</button>
+            </form>
+        </div>
+
+        <!-- Tombol Filter -->
+        <div class="filter-section">
+            <button class="filter-btn active" data-filter="Semua">Semua</button>
+            <button class="filter-btn" data-filter="Sosial">Sosial</button>
+            <button class="filter-btn" data-filter="Olahraga">Olahraga</button>
+            <button class="filter-btn" data-filter="Rapat">Rapat</button>
+            <button class="filter-btn" data-filter="Seni">Seni</button>
+        </div>
+
+        <div class="feed" id="feedContainer">
+            <!-- Kartu kegiatan akan muncul di sini -->
+        </div>
+    </div>
+
+    <script>
+        const activityForm = document.getElementById('activityForm');
+        const feedContainer = document.getElementById('feedContainer');
+        const filterBtns = document.querySelectorAll('.filter-btn');
+
+        // Fungsi untuk mengambil data dari LocalStorage
+        function getActivities() {
+            const data = localStorage.getItem('karangTarunaActivities');
+            return data ? JSON.parse(data) : [];
+        }
+
+        // Fungsi untuk menyimpan data ke LocalStorage
+        function saveActivities(activities) {
+            try {
+                localStorage.setItem('karangTarunaActivities', JSON.stringify(activities));
+            } catch (e) {
+                alert("Penyimpanan penuh! Hapus beberapa kegiatan lama untuk mengunggah yang baru.");
+            }
+        }
+
+        // Fungsi mengubah file gambar menjadi Base64 string agar bisa disimpan di LocalStorage
+        function getBase64(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = error => reject(error);
+            });
+        }
+
+        // Merender (menampilkan) semua kegiatan ke layar
+        function renderActivities(filter = 'Semua') {
+            feedContainer.innerHTML = '';
+            const activities = getActivities();
+
+            // Urutkan dari yang terbaru
+            const filteredActivities = activities.filter(act => filter === 'Semua' || act.category === filter);
+
+            filteredActivities.forEach((act) => {
+                const dateObj = new Date(act.date);
+                const formattedDate = dateObj.toLocaleDateString('id-ID', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+
+                const card = document.createElement('div');
+                card.className = 'activity-card';
+                card.innerHTML = `
+                    <button class="delete-btn" onclick="deleteActivity(${act.id})">Hapus</button>
+                    <img src="${act.image}" alt="${act.title}">
+                    <div class="activity-info">
+                        <h3>${act.title}</h3>
+                        <div class="meta-info">
+                            <span class="activity-category">📌 ${act.category}</span>
+                            <span class="activity-date">📅 ${formattedDate}</span>
+                        </div>
+                        <p class="activity-desc">${act.desc}</p>
+                    </div>
+                `;
+                // Gunakan appendChild karena array sudah kita buat urut dari atas saat push (di reverse logic atau insert at 0)
+                feedContainer.appendChild(card);
+            });
+        }
+
+        // Menambahkan kegiatan baru
+        activityForm.addEventListener('submit', async function(event) {
+            event.preventDefault(); 
+            const submitBtn = document.querySelector('.btn-submit');
+            submitBtn.textContent = 'Memproses...';
+            submitBtn.disabled = true;
+
+            const title = document.getElementById('titleInput').value;
+            const category = document.getElementById('categoryInput').value;
+            const date = document.getElementById('dateInput').value;
+            const desc = document.getElementById('descInput').value;
+            const file = document.getElementById('photoInput').files[0];
+
+            if (file) {
+                const imageBase64 = await getBase64(file);
+                
+                const newActivity = {
+                    id: Date.now(),
+                    title: title,
+                    category: category,
+                    date: date,
+                    desc: desc,
+                    image: imageBase64
+                };
+
+                const activities = getActivities();
+                activities.unshift(newActivity); // Masukkan ke urutan paling atas
+                saveActivities(activities);
+
+                activityForm.reset();
+                document.querySelector('[data-filter="Semua"]').click(); // Reset filter dan render ulang
+            }
+
+            submitBtn.textContent = 'Publikasikan Kegiatan';
+            submitBtn.disabled = false;
+        });
+
+        // Menghapus kegiatan
+        window.deleteActivity = function(id) {
+            if(confirm("Apakah Anda yakin ingin menghapus kegiatan ini?")) {
+                let activities = getActivities();
+                activities = activities.filter(act => act.id !== id);
+                saveActivities(activities);
+                const activeFilter = document.querySelector('.filter-btn.active').getAttribute('data-filter');
+                renderActivities(activeFilter);
+            }
+        };
+
+        // Filter Kegiatan
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                renderActivities(this.getAttribute('data-filter'));
+            });
+        });
+
+        // Render saat pertama kali web dibuka
+        renderActivities();
+    </script>
+</body>
+</html>
