@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Karang Taruna Bina Pemuda</title>
+    <!-- Menggunakan font Google 'Poppins' agar terlihat modern -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* CSS RESET & VARIABEL */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        :root {
+            --primary-color: #1e3a8a; /* Biru Tua */
+            --secondary-color: #f59e0b; /* Kuning Emas */
+            --text-dark: #333;
+            --text-light: #fff;
+            --bg-light: #f8fafc;
+        }
+
+        body { background-color: var(--bg-light); color: var(--text-dark); line-height: 1.6; }
+
+        /* NAVBAR */
+        nav {
+            background-color: var(--primary-color);
+            color: var(--text-light);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        nav .logo { font-size: 1.5rem; font-weight: 700; color: var(--secondary-color); }
+        
+        nav ul { list-style: none; display: flex; gap: 1.5rem; }
+        
+        nav ul li a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.3s ease;
+        }
+
+        nav ul li a:hover { color: var(--secondary-color); }
+
+        /* HERO SECTION */
+        .hero {
+            background: linear-gradient(rgba(30, 58, 138, 0.8), rgba(30, 58, 138, 0.9)), 
+                        url('https://images.unsplash.com/photo-1529156069898-49953e39b3ac?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: var(--text-light);
+            padding: 0 20px;
+        }
+
+        .hero h1 { font-size: 3.5rem; margin-bottom: 1rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px;}
+        .hero p { font-size: 1.2rem; margin-bottom: 2rem; max-width: 600px; }
+        
+        .btn {
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+            padding: 12px 30px;
+            text-decoration: none;
+            font-weight: 700;
+            border-radius: 30px;
+            transition: 0.3s;
+            text-transform: uppercase;
+        }
+
+        .btn:hover { background-color: #fbbf24; transform: scale(1.05); }
+
+        /* SECTION GLOBAL */
+        section { padding: 5rem 5%; text-align: center; }
+        section h2 { font-size: 2.5rem; color: var(--primary-color); margin-bottom: 2rem; position: relative; display: inline-block;}
+        section h2::after {
+            content: ''; width: 50%; height: 4px; background: var(--secondary-color);
+            position: absolute; bottom: -10px; left: 25%; border-radius: 2px;
+        }
+
+        /* PROGRAM KERJA (GRID CARDS) */
+        .program-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .card {
+            background: #fff;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            border-bottom: 5px solid var(--secondary-color);
+        }
+
+        .card h3 { color: var(--primary-color); margin-bottom: 1rem; font-size: 1.5rem;}
+        .card p { color: #666; font-size: 0.95rem; }
+
+        /* FOOTER */
+        footer {
+            background-color: var(--primary-color);
+            color: var(--text-light);
+            text-align: center;
+            padding: 2rem 5%;
+            margin-top: auto;
+        }
+
+        footer p { margin-top: 1rem; font-size: 0.9rem; opacity: 0.8;}
+
+        /* RESPONSIVE DESIGN */
+        @media (max-width: 768px) {
+            nav { flex-direction: column; gap: 1rem; }
+            .hero h1 { font-size: 2.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigasi -->
+    <nav>
+        <div class="logo">KARTAR BINA PEMUDA</div>
+        <ul>
+            <li><a href="#beranda">Beranda</a></li>
+            <li><a href="#tentang">Tentang Kami</a></li>
+            <li><a href="#program">Program Kerja</a></li>
+            <li><a href="#kontak">Kontak</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero / Bagian Utama -->
+    <header class="hero" id="beranda">
+        <h1>Pemuda Berkarya, <br> Desa Berjaya</h1>
+        <p>Wadah kreativitas, inovasi, dan pengabdian pemuda-pemudi untuk membangun lingkungan masyarakat yang lebih maju dan sejahtera.</p>
+        <a href="#program" class="btn">Lihat Program Kami</a>
+    </header>
+
+    <!-- Bagian Tentang Kami -->
+    <section id="tentang">
+        <h2>Tentang Kami</h2>
+        <p style="max-width: 800px; margin: 0 auto; color: #555; font-size: 1.1rem;">
+            Karang Taruna Bina Pemuda adalah organisasi kepemudaan di tingkat desa/kelurahan yang menjadi wadah pengembangan generasi muda non-partisan. Kami tumbuh atas dasar kesadaran dan tanggung jawab sosial dari, oleh, dan untuk masyarakat.
+        </p>
+    </section>
+
+    <!-- Bagian Program Kerja -->
+    <section id="program" style="background-color: #e2e8f0;">
+        <h2>Program Unggulan</h2>
+        <div class="program-container">
+            <div class="card">
+                <h3>Bidang Sosial</h3>
+                <p>Kegiatan bakti sosial, tanggap bencana, donor darah, dan program peduli lingkungan untuk menjaga kebersihan desa.</p>
+            </div>
+            <div class="card">
+                <h3>Ekonomi Kreatif</h3>
+                <p>Pelatihan kewirausahaan untuk pemuda, pameran produk lokal (UMKM), dan digital marketing untuk kemajuan ekonomi desa.</p>
+            </div>
+            <div class="card">
+                <h3>Olahraga & Seni</h3>
+                <p>Turnamen olahraga antar RW, pembinaan atlet muda, serta pagelaran seni budaya daerah untuk melestarikan tradisi.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bagian Kontak -->
+    <section id="kontak">
+        <h2>Hubungi Kami</h2>
+        <p style="margin-bottom: 20px;">Mari berkolaborasi bersama kami untuk membangun desa tercinta.</p>
+        <div style="font-weight: 600; color: #1e3a8a;">
+            <p>📍 Alamat: Balai Desa Maju Jaya, Jl. Pemuda No. 1</p>
+            <p>📧 Email: halo@kartarbinapemuda.id</p>
+            <p>📱 WhatsApp: 0812-3456-7890</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <h3>Karang Taruna Bina Pemuda</h3>
+        <p>&copy; 2026 Karang Taruna Bina Pemuda. Dibuat dengan semangat gotong royong.</p>
+    </footer>
+
+</body>
+</html>
